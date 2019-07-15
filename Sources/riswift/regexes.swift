@@ -7,8 +7,7 @@
 
 import Foundation
 
-extension NSRegularExpression {
-    // swiped from https://www.hackingwithswift.com/articles/108/how-to-use-regular-expressions-in-swift
+final class Regex: NSRegularExpression, ExpressibleByStringLiteral {
     convenience init(_ pattern: String) {
         do {
             try self.init(pattern: pattern)
@@ -16,7 +15,18 @@ extension NSRegularExpression {
             preconditionFailure("Illegal regular expression: \(pattern).")
         }
     }
+    convenience init(_ pattern: String, options: Regex.Options) {
+        do {
+            try self.init(pattern: pattern, options: options)
+        } catch {
+            preconditionFailure("Illegal regular expression: \(pattern).")
+        }
+    }
+    convenience init(stringLiteral value: String) {
+        self.init(value)
+    }
 }
+
 
 extension String {
     func matches(_ pattern: String) -> Bool {
@@ -34,3 +44,6 @@ extension String {
     }
 }
 
+struct MyRegexes {
+    static let blockRegex = Regex(#"[\r\n]{2}TY  - .*?ER  -"#, options: [.dotMatchesLineSeparators])
+}
