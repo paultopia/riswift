@@ -103,9 +103,10 @@ func RPValidator(_ rp: String) -> Bool {
     case "NOT IN FILE":
         return true
     default:
-        return false
+        return rp.completelyMatches(#"ON REQUEST \d\d/\d\d/\d\d"#)
     }
 }
 
-var tagValidators: [String: (String) -> Bool] = ["TY":{permissibleTypes.contains($0)}]
+var tagValidators: [String: (String) -> Bool] = ["TY":{permissibleTypes.contains($0)},
+                                                 "RP": RPValidator]
 

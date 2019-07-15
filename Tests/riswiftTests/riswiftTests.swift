@@ -19,12 +19,22 @@ final class riswiftTests: XCTestCase {
         let firstExtractedCite = extractValidBlocks(risdata: risfile!)![0]
         XCTAssertEqual(firstExtractedCite, firstCite)
     }
-    func testSimpleRegexMatching() {
+    func testInclusiveRegexMatching() {
         let dummyString = "cat101"
         let longDummyString = "cat101meowmeow"
-        XCTAssertTrue(dummyString.matches(NSRegularExpression(#"cat\d\d\d"#)))
-        XCTAssertFalse(dummyString.matches(NSRegularExpression(#"dog\d\d\d"#)))
-        XCTAssertTrue(longDummyString.matches(NSRegularExpression(#"cat\d\d\d"#)))
+        XCTAssertTrue(dummyString.matches(#"cat\d\d\d"#))
+        XCTAssertFalse(dummyString.matches(#"dog\d\d\d"#))
+        XCTAssertTrue(longDummyString.matches(#"cat\d\d\d"#))
+    }
+    func testCompleteRegexMatching() {
+        let dummyString = "cat101"
+        let longDummyString = "cat101meowmeow"
+        XCTAssertTrue(dummyString.completelyMatches(#"cat\d\d\d"#))
+        XCTAssertFalse(dummyString.completelyMatches(#"dog\d\d\d"#))
+        XCTAssertFalse(longDummyString.completelyMatches(#"cat\d\d\d"#))
+        XCTAssertTrue(RPValidator("IN FILE"))
+        XCTAssertTrue(RPValidator("ON REQUEST 02/01/80"))
+        XCTAssertFalse(RPValidator("ON REQUEST 02/01/801"))
     }
 }
 

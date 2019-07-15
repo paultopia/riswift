@@ -19,18 +19,18 @@ extension NSRegularExpression {
 }
 
 extension String {
-    func matches(_ pattern: NSRegularExpression) -> Bool {
-        // also swiped from HWS but flipped around to be extension on string
-        let range = NSRange(location: 0, length: self.utf16.count)
-        return pattern.firstMatch(in: self, options: [], range: range) != nil
-    }
-    
-    func completelyMatches(_ pattern: NSRegularExpression) -> Bool {
+    func matches(_ pattern: String) -> Bool {
+        guard let _ = self.range(of: pattern, options: .regularExpression) else {
+            return false
+        }
         return true
     }
+    
+    func completelyMatches(_ pattern: String) -> Bool {
+        guard let range = self.range(of: pattern, options: .regularExpression) else {
+            return false
+        }
+        return self[range] == self
+    }
 }
-
-let blockPattern = #"[\r\n]{2}TY  - .*?ER  -"#
-let blockOptions: NSRegularExpression.Options = [.dotMatchesLineSeparators]
-let blockRegex = try! NSRegularExpression(pattern: blockPattern, options: blockOptions)
 

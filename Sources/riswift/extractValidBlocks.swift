@@ -11,6 +11,12 @@
 
 import Foundation
 
+let blockPattern = #"[\r\n]{2}TY  - .*?ER  -"#
+let blockOptions: NSRegularExpression.Options = [.dotMatchesLineSeparators]
+let blockRegex = try! NSRegularExpression(pattern: blockPattern, options: blockOptions)
+
+
+
 func extractValidBlocks(risdata: String) -> [String]? {
     let range = NSRange(location: 0, length: risdata.utf16.count)
     let results = blockRegex.matches(in: risdata, range: range)
