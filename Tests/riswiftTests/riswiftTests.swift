@@ -30,7 +30,8 @@ final class riswiftTests: XCTestCase {
         let dummyString = "cat101"
         let longDummyString = "cat101meowmeow"
         XCTAssertTrue(dummyString.completelyMatches(#"cat\d\d\d"#))
-        XCTAssertFalse(dummyString.completelyMatches(#"dog\d\d\d"#))
+        XCTAssertTrue(dummyString.completelyMatches(Regex(#"cat\d\d\d"#)))
+        XCTAssertFalse(dummyString.completelyMatches(Regex(#"dog\d\d\d"#)))
         XCTAssertFalse(longDummyString.completelyMatches(#"cat\d\d\d"#))
         XCTAssertTrue(RPValidator("IN FILE"))
         XCTAssertTrue(RPValidator("ON REQUEST 02/01/80"))

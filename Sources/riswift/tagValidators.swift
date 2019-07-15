@@ -103,7 +103,7 @@ func RPValidator(_ rp: String) -> Bool {
     case "NOT IN FILE":
         return true
     default:
-        return rp.completelyMatches(#"ON REQUEST \d\d/\d\d/\d\d"#)
+        return rp.completelyMatches(MyRegexes.rpOnFile)
     }
 }
 

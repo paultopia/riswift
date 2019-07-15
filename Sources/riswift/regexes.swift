@@ -35,15 +35,26 @@ extension String {
         }
         return true
     }
-    
+    func matches(_ pattern: Regex) -> Bool {
+        let range = NSRange(location: 0, length: self.utf16.count)
+        return pattern.firstMatch(in: self, options: [], range: range) != nil
+    }
     func completelyMatches(_ pattern: String) -> Bool {
         guard let range = self.range(of: pattern, options: .regularExpression) else {
             return false
         }
         return self[range] == self
     }
+    func completelyMatches(_ pattern: Regex) -> Bool {
+        let range = NSRange(location: 0, length: self.utf16.count)
+        guard let match = pattern.firstMatch(in: self, options: [], range: range) else {
+            return false
+        }
+        return self[Range(match.range, in: self)!] == self
+    }
 }
 
 struct MyRegexes {
     static let blockRegex = Regex(#"[\r\n]{2}TY  - .*?ER  -"#, options: [.dotMatchesLineSeparators])
+    static let rpOnFile = Regex(#"ON REQUEST \d\d/\d\d/\d\d"#)
 }
