@@ -58,6 +58,20 @@ extension String {
     }
 }
 
+
+extension NSRange {
+    func matchedText(_ str: String) -> String {
+        return String(str[Range(self, in: str)!])
+    }
+}
+
+extension String {
+    func matchRange(_ range: NSRange) -> String {
+        return String(self[Range(range, in: self)!])
+    }
+}
+
+
 struct MyRegexes {
     static let blockRegex = Regex(#"[\r\n]{2}TY  - .*?ER  -"#, options: [.dotMatchesLineSeparators])
     static let rpOnFile = Regex(#"ON REQUEST \d\d/\d\d/\d\d"#)

@@ -32,8 +32,8 @@ func extractValidTags(_ block: String) -> [String:String] {
     var outdict = [String:String]()
     for match in matches {
         if match.numberOfRanges == 3 {
-            let tag = String(block[Range(match.range(at: 1), in: block)!])
-            let value = String(block[Range(match.range(at: 2), in: block)!])
+            let tag = block.matchRange(match.range(at: 1))
+            let value = block.matchRange(match.range(at: 2))
             print(tag)
             print(value)
             outdict[tag] = value
