@@ -16,8 +16,15 @@ final class riswiftTests: XCTestCase {
     }
     
     func testCanExtractCitesFromValidFile() {
-        let firstExtractedCite = extractValidBlocks(risdata: risfile!)[0]
+        let firstExtractedCite = extractValidBlocks(risdata: risfile!)![0]
         XCTAssertEqual(firstExtractedCite, firstCite)
+    }
+    func testSimpleRegexMatching() {
+        let dummyString = "cat101"
+        let longDummyString = "cat101meowmeow"
+        XCTAssertTrue(dummyString.matches(NSRegularExpression(#"cat\d\d\d"#)))
+        XCTAssertFalse(dummyString.matches(NSRegularExpression(#"dog\d\d\d"#)))
+        XCTAssertTrue(longDummyString.matches(NSRegularExpression(#"cat\d\d\d"#)))
     }
 }
 
