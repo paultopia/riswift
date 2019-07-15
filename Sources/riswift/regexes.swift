@@ -25,6 +25,10 @@ final class Regex: NSRegularExpression, ExpressibleByStringLiteral {
     convenience init(stringLiteral value: String) {
         self.init(value)
     }
+    func allMatches(_ str: String) -> [NSTextCheckingResult] {
+        let range = NSRange(location: 0, length: str.utf16.count)
+        return self.matches(in: str, options: [], range: range)
+    }
 }
 
 
@@ -57,4 +61,5 @@ extension String {
 struct MyRegexes {
     static let blockRegex = Regex(#"[\r\n]{2}TY  - .*?ER  -"#, options: [.dotMatchesLineSeparators])
     static let rpOnFile = Regex(#"ON REQUEST \d\d/\d\d/\d\d"#)
+    static let tagRegex = Regex(#"^([A-Z1-3]{2})\s\s-\s(.*?)$"#, options: [.anchorsMatchLines])
 }

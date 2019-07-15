@@ -24,3 +24,24 @@ func extractValidBlocks(risdata: String) -> [String]? {
     }
     return strings
 }
+
+
+
+func extractValidTags(_ block: String) -> [String:String] {
+    let matches = MyRegexes.tagRegex.allMatches(block)
+    var outdict = [String:String]()
+    for match in matches {
+        if match.numberOfRanges == 3 {
+            let tag = String(block[Range(match.range(at: 1), in: block)!])
+            let value = String(block[Range(match.range(at: 2), in: block)!])
+            print(tag)
+            print(value)
+            outdict[tag] = value
+            
+        } else {
+            print("got wrong number of ranges")
+            print(match.numberOfRanges)
+        }
+    }
+    return outdict
+}

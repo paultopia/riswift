@@ -37,6 +37,10 @@ final class riswiftTests: XCTestCase {
         XCTAssertTrue(RPValidator("ON REQUEST 02/01/80"))
         XCTAssertFalse(RPValidator("ON REQUEST 02/01/801"))
     }
+    func testTagExtraction() {
+        let firstExtractedCite = extractValidBlocks(risdata: risfile!)![0]
+        print(extractValidTags(firstExtractedCite))
+    }
 }
 
 #if os(Linux)
